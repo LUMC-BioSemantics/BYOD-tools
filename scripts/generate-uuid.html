@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <style type="text/css">
+        input#gen-val {
+            min-width: 600px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Generate random UUID</h1>
+
+            <form class="form-inline">
+                <button type="button" class="btn btn-primary" id="gen-btn">Generate</button>
+                <input type="text" class="form-control" id="gen-val"/>
+            </form>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://rawgit.com/pnegri/uuid-js/master/lib/uuid.js"></script>
+        <script>
+        var PREFIX = '';
+        $('#gen-btn').click(function() {
+          var uuid = UUIDjs.create(4).toString();
+          console.log('created uuid ' + uuid);
+          $('#gen-val')
+            .val(PREFIX + uuid)
+            .select();
+        });
+
+        $(function() {
+          $('#gen-btn').click();
+        });
+        </script>
+        
+        <script>
+        $('#create').click(function() {    
+          var orcidURL = document.getElementById('orcid-url').value;
+          var givenName = document.getElementById('given-name').value;
+          var lastName = document.getElementById('last-name').value;
+          var link = document.getElementById('downloadlink');
+          var subject = "<" + orcidURL + ">";
+          var predicate = "<http://rdf.biosemantics.org/ontologies/2015/8/workshop/ORCID>";
+          var object = "<" + orcidURL + ">";
+          var triples = createTriples(subject, predicate, object);
+          
+          predicate = "<http://xmlns.com/foaf/0.1/familyName>";
+          object = '"' + lastName + '"';
+          triples = triples + "\n" + createTriples(subject, predicate, object);
+          
+          predicate = "<http://xmlns.com/foaf/0.1/givenName>";
+          object = '"' + givenName + '"';
+          triples = triples + "\n" + createTriples(subject, predicate, object);
+          
+          link.href = makeTextFile(triples);
+          link.style.display = 'block';
+        });
+        
+        var textFile = null,
+        makeTextFile = function (text) {            
+            var data = new Blob([text], {type: 'application/n-triples'});
+            // If we are replacing a previously generated file we need to
+            // manually revoke the object URL to avoid memory leaks.
+            if (textFile !== null) {
+              window.URL.revokeObjectURL(textFile);
+            }
+            textFile = window.URL.createObjectURL(data)
+            return textFile;          
+        }
+        
+        createTriples = function (subject, predicate, object) {
+            if (subject !== null && predicate !== null && object !== null) {
+                var triple = subject + "\t" + predicate + "\t" + object + "\t .";
+                console.log('created triple ' + triple);
+                return triple;
+            }
+            else {
+                console.log('Can not create triple');
+                return null;
+            }
+        }
+        </script>
+            
+    </body>
+</html>

@@ -1,0 +1,18 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix lang: <http://id.loc.gov/vocabulary/iso639-1/> .
+
+<> 	dct:description "An example dataset metadata" ;
+	dct:hasVersion "1.0" ;
+	dct:language lang:en ;
+	dct:publisher <YOUR_ORCID_URL>;
+	dct:title "GoNL human variants"@en ;
+	a dcat:Dataset ;
+	rdfs:label "GoNL human variants"@en ;
+	dcat:keyword "GoNL" , "goNlSvR5" , "human" , "variant" ;
+	dcat:landingPage <http://www.genoomvannederland.nl/> ;
+	dcat:theme <http://dbpedia.org/resource/Homo_sapiens> , <http://dbpedia.org/resource/Mutation> .
