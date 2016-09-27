@@ -4,6 +4,7 @@ Run the following shell command to create docker containers of openrefine, fdp, 
 
 ```shell
 sh scripts/createDockerContainers.sh
+````
 
 
 #### How to access the docker containers
