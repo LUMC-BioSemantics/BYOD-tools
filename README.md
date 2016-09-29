@@ -11,7 +11,9 @@ sh scripts/createDockerContainers.sh
 
 Service | URL |
 --- | --- 
-FDP | http://localhost:8080/fdp/swagger-ui.html
+FDP | http://localhost:9002/fdp/swagger-ui.html
+Fair metadata editor | http://localhost:9001
 Openrefine | http://localhost:3333
 Virtuoso triple store | http://localhost:8890/sparql
 Linked data fragment server (ldf) | http://localhost:5001
+Linked data fragment client | http://localhost:5002
